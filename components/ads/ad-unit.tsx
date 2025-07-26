@@ -14,6 +14,12 @@ interface AdUnitProps {
   fullWidth?: boolean
 }
 
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 export default function AdUnit({
   className,
   slot,
@@ -23,7 +29,7 @@ export default function AdUnit({
   layout = "display",
   fullWidth = true,
 }: AdUnitProps) {
-  const adRef = useRef<HTMLDivElement>(null)
+  const adRef = useRef<HTMLModElement>(null)
   const [adLoaded, setAdLoaded] = useState(false)
   const [adError, setAdError] = useState(false)
   const [isClient, setIsClient] = useState(false)

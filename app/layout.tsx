@@ -45,17 +45,17 @@ export default function RootLayout({
   const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_ID;
   return (
     <html lang="en">
-      {/* <head>
+      <head>
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <meta name="google-adsense-account" content={process.env.NEXT_PUBLIC_ADSENSE_ID} />
         )}
-      </head> */}
-      <head>
-        {/*
-          Google AdSense Auto Ads Script
-          Only loads if the publisher ID is available.
-          Using 'afterInteractive' strategy for optimal performance.
-        */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+      </head>
+      {/* <head>
+        
         {adsensePublisherId && (
           <Script
             async
@@ -64,7 +64,7 @@ export default function RootLayout({
             strategy="afterInteractive" // Loads after the page is interactive
           />
         )}
-      </head>
+      </head> */}
 
       <body className={inter.className}>
         <AdSenseScript />
