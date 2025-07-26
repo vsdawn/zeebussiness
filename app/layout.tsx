@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import AdSenseScript from "./adsense-script"
+import Script from "next/script"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -41,14 +42,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_ID;
   return (
     <html lang="en">
-      <head>
-        {/* AdSense verification meta tag */}
+      {/* <head>
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <meta name="google-adsense-account" content={process.env.NEXT_PUBLIC_ADSENSE_ID} />
         )}
+      </head> */}
+      <head>
+        {/*
+          Google AdSense Auto Ads Script
+          Only loads if the publisher ID is available.
+          Using 'afterInteractive' strategy for optimal performance.
+        */}
+        {adsensePublisherId && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsensePublisherId}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive" // Loads after the page is interactive
+          />
+        )}
       </head>
+
       <body className={inter.className}>
         <AdSenseScript />
         {children}
