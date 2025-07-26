@@ -51,8 +51,8 @@ export default function Header({ currentCategory }: HeaderProps) {
               <ApiStatus className="hidden md:inline-flex" />
             </div>
             <div className="hidden md:flex items-center space-x-4">
-              <span>NSE: 24,500 (+1.2%)</span>
-              <span>BSE: 80,200 (+0.8%)</span>
+              {/* <span>NSE: 24,500 (+1.2%)</span>
+              <span>BSE: 80,200 (+0.8%)</span> */}
             </div>
           </div>
         </div>
