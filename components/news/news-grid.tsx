@@ -5,9 +5,10 @@ import type { NewsDataArticle } from "@/lib/news-api"
 interface NewsGridProps {
   articles: NewsDataArticle[]
   category: string
+  isHomepage?: boolean
 }
 
-export default function NewsGrid({ articles, category }: NewsGridProps) {
+export default function NewsGrid({ articles, category, isHomepage = false }: NewsGridProps) {
   const categoryName = category?.charAt(0)?.toUpperCase() + category?.slice(1) || "Business"
 
   if (!articles || articles.length === 0) {
@@ -31,15 +32,17 @@ export default function NewsGrid({ articles, category }: NewsGridProps) {
 
   return (
     <div>
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{categoryName} News</h1>
-        <p className="text-gray-600">Stay updated with the latest {category} news and developments</p>
-        <div className="mt-2 text-sm text-gray-500">{articles.length} articles • Powered by NewsData.io</div>
-      </div>
+      {/* Header - Only show on category pages, not homepage */}
+      {!isHomepage && (
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{categoryName} News</h1>
+          <p className="text-gray-600">Stay updated with the latest {category} news and developments</p>
+          <div className="mt-2 text-sm text-gray-500">{articles.length} articles • Powered by NewsData.io</div>
+        </div>
+      )}
 
-      {/* Top Ad Space */}
-      <AdSpace className="mb-8" height="h-24" type="display" slot="1234567890" />
+      {/* Top Ad Space - Only on category pages */}
+      {!isHomepage && <AdSpace className="mb-8" height="h-24" type="display" slot="1234567890" />}
 
       {/* News Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -56,8 +59,8 @@ export default function NewsGrid({ articles, category }: NewsGridProps) {
         ))}
       </div>
 
-      {/* Bottom Ad Space */}
-      <AdSpace className="mt-8" height="h-24" type="display" slot="3456789012" />
+      {/* Bottom Ad Space - Only on category pages */}
+      {!isHomepage && <AdSpace className="mt-8" height="h-24" type="display" slot="3456789012" />}
     </div>
   )
 }
