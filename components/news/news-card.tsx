@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ExternalLink, Clock, User } from "lucide-react"
+import { ExternalLink, Clock, User, Bookmark } from "lucide-react"
+import SocialShareImproved from "../ui/social-share-improved"
 import type { NewsDataArticle } from "@/lib/news-api"
 
 interface NewsCardProps {
@@ -26,7 +27,11 @@ export default function NewsCard({ article }: NewsCardProps) {
   const author = article.creator?.[0] || "Staff Reporter"
 
   return (
-    <article className="news-card group">
+    <article
+      className="news-card group relative"
+      data-article-id={article.article_id}
+      id={`article-${article.article_id}`}
+    >
       {/* Image */}
       {article.image_url && (
         <div className="relative h-48 overflow-hidden">
@@ -43,6 +48,14 @@ export default function NewsCard({ article }: NewsCardProps) {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
+          {/* Bookmark button - top right */}
+          <button
+            className="absolute top-3 right-3 p-2 bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors"
+            aria-label="Bookmark article"
+          >
+            <Bookmark className="w-4 h-4 text-gray-600 hover:text-blue-600" />
+          </button>
         </div>
       )}
 
@@ -96,16 +109,22 @@ export default function NewsCard({ article }: NewsCardProps) {
           </div>
         )}
 
-        {/* Read More */}
-        <Link
-          href={article.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
-        >
-          Read full article
-          <ExternalLink className="w-4 h-4 ml-1" />
-        </Link>
+        {/* Actions */}
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 relative">
+          {/* Read More */}
+          <Link
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+          >
+            Read full article
+            <ExternalLink className="w-4 h-4 ml-1" />
+          </Link>
+
+          {/* Share Button */}
+          <SocialShareImproved url={article.link} title={article.title} description={article.description} />
+        </div>
       </div>
     </article>
   )
