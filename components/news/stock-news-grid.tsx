@@ -96,7 +96,7 @@ export default function StockNewsGrid({ articles }: StockNewsGridProps) {
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => {
-                    const shareText = `Check out the latest Indian stock market news on TheNewsHive!\n\n${window.location.href}`
+                    const shareText = `Check out the latest Indian stock market news on ZeeBussiness!\n\n${window.location.href}`
                     window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, "_blank")
                   }}
                   className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
