@@ -112,7 +112,7 @@ export default function NewsCard({ article }: NewsCardProps) {
         {/* Actions */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100 relative">
           {/* Read More */}
-          <Link
+          {/* <Link
             href={article.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -120,7 +120,7 @@ export default function NewsCard({ article }: NewsCardProps) {
           >
             Read full article
             <ExternalLink className="w-4 h-4 ml-1" />
-          </Link>
+          </Link> */}
 
           {/* Share Button */}
           <SocialShareImproved url={article.link} title={article.title} description={article.description} />
