@@ -98,12 +98,18 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">© {new Date().getFullYear()} ZeeBussiness. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 md:mt-0">
             <Link href="/legal/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
             <Link href="/legal/terms-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Terms and Conditions
+              Terms & Conditions
+            </Link>
+            <Link href="/legal/disclaimer" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Disclaimer
+            </Link>
+            <Link href="/legal/cookie-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Cookie Policy
             </Link>
           </div>
         </div>

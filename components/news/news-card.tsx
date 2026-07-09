@@ -8,8 +8,11 @@ interface NewsCardProps {
   article: NewsDataArticle
 }
 
-function formatTimeAgo(dateString: string) {
+function formatTimeAgo(dateString: string | undefined) {
+  if (!dateString) return "Recently"
   const date = new Date(dateString)
+  if (isNaN(date.getTime())) return "Recently"
+
   const now = new Date()
   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
 
@@ -23,31 +26,45 @@ function formatTimeAgo(dateString: string) {
 }
 
 export default function NewsCard({ article }: NewsCardProps) {
+  if (!article) return null
+
   const timeAgo = formatTimeAgo(article.pubDate)
   const author = article.creator?.[0] || "Staff Reporter"
+  const articleId = article.article_id || ""
+
+  const getArticleCategory = () => {
+    if (articleId && typeof articleId === "string" && articleId.startsWith("fallback-")) {
+      const parts = articleId.split("-")
+      return parts[1] || "business"
+    }
+    return article.category?.[0] || "business"
+  }
+  const category = getArticleCategory()
 
   return (
     <article
       className="news-card group relative"
-      data-article-id={article.article_id}
-      id={`article-${article.article_id}`}
+      data-article-id={articleId}
+      id={`article-${articleId}`}
     >
       {/* Image */}
       {article.image_url && (
         <div className="relative h-48 overflow-hidden">
-          <Image
-            src={article.image_url || "/placeholder.svg"}
-            alt={article.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            onError={(e) => {
-              // Fallback to placeholder if image fails to load
-              const target = e.target as HTMLImageElement
-              target.src = `/placeholder.svg?height=300&width=400&text=${encodeURIComponent("News Image")}`
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          <Link href={`/article/${category}/${articleId}`}>
+            <Image
+              src={article.image_url || "/placeholder.svg"}
+              alt={article.title || "News"}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onError={(e) => {
+                // Fallback to placeholder if image fails to load
+                const target = e.target as HTMLImageElement
+                target.src = `/placeholder.svg?height=300&width=400&text=${encodeURIComponent("News Image")}`
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          </Link>
 
           {/* Bookmark button - top right */}
           <button
@@ -64,24 +81,26 @@ export default function NewsCard({ article }: NewsCardProps) {
         {/* Meta */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {article.source_id}
-            </span>
-            {article.country && article.country.length > 0 && (
+            {article.source_id && (
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                {article.source_id}
+              </span>
+            )}
+            {Array.isArray(article.country) && article.country.length > 0 && article.country[0] && (
               <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
-                {article.country[0].toUpperCase()}
+                {String(article.country[0]).toUpperCase()}
               </span>
             )}
           </div>
           <div className="flex items-center text-gray-500 text-sm">
             <Clock className="w-4 h-4 mr-1" />
-            {timeAgo}
+            <span suppressHydrationWarning>{timeAgo}</span>
           </div>
         </div>
 
         {/* Title */}
         <h2 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
-          {article.title}
+          <Link href={`/article/${category}/${articleId}`}>{article.title || "Untitled News"}</Link>
         </h2>
 
         {/* Description */}
@@ -96,34 +115,35 @@ export default function NewsCard({ article }: NewsCardProps) {
         )}
 
         {/* Keywords */}
-        {article.keywords && article.keywords.length > 0 && (
+        {Array.isArray(article.keywords) && article.keywords.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-4">
-            {article.keywords.slice(0, 3).map((keyword, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-600"
-              >
-                {keyword}
-              </span>
-            ))}
+            {article.keywords.slice(0, 3).map((keyword, index) => {
+              if (!keyword) return null
+              return (
+                <span
+                  key={index}
+                  className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-600"
+                >
+                  {keyword}
+                </span>
+              )
+            })}
           </div>
         )}
 
         {/* Actions */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100 relative">
           {/* Read More */}
-          {/* <Link
-            href={article.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+          <Link
+            href={`/article/${category}/${articleId}`}
+            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors"
           >
             Read full article
             <ExternalLink className="w-4 h-4 ml-1" />
-          </Link> */}
+          </Link>
 
           {/* Share Button */}
-          <SocialShareImproved url={article.link} title={article.title} description={article.description} />
+          <SocialShareImproved url={article.link || ""} title={article.title || ""} description={article.description || ""} />
         </div>
       </div>
     </article>
