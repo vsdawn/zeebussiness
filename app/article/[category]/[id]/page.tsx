@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams } from "next/navigation"
+import { useState, useEffect, use } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Calendar, User, Clock, ExternalLink, Share2 } from "lucide-react"
@@ -15,10 +14,10 @@ import SocialShareImproved from "@/components/ui/social-share-improved"
 
 const topStocks = ["RELIANCE.BSE", "TCS.BSE", "HDFCBANK.BSE", "INFY.BSE"]
 
-export default function ArticlePage() {
-  const params = useParams()
-  const category = (params?.category as string) || "business"
-  const id = params?.id as string
+export default function ArticlePage({ params }: { params: Promise<{ category: string; id: string }> }) {
+  const resolvedParams = use(params)
+  const category = resolvedParams.category || "business"
+  const id = resolvedParams.id
 
   const [article, setArticle] = useState<NewsDataArticle | null>(null)
   const [relatedArticles, setRelatedArticles] = useState<NewsDataArticle[]>([])

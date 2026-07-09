@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams } from "next/navigation"
+import { useState, useEffect, use } from "react"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import NewsGrid from "@/components/news/news-grid"
@@ -11,9 +10,9 @@ import { fetchNews, type NewsDataArticle } from "@/lib/news-api"
 
 const categories = ["business", "sports", "technology", "world", "politics", "indian-stocks"]
 
-export default function CategoryPage() {
-  const params = useParams()
-  const category = (params?.category as string) || "business"
+export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const resolvedParams = use(params)
+  const category = resolvedParams.category || "business"
   const [articles, setArticles] = useState<NewsDataArticle[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
