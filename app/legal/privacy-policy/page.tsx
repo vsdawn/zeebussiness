@@ -1,15 +1,17 @@
-// app/legal/privacy-policy/page.tsx
+import type { Metadata } from "next"
+import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
 
-import Head from 'next/head';
+export const metadata: Metadata = {
+  title: "Privacy Policy - ZeeBussiness",
+  description: "Read the Privacy Policy of ZeeBussiness regarding data collection and usage.",
+}
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      <Head>
-        <title>Privacy Policy - ZeeBussiness</title>
-        <meta name="description" content="Read the Privacy Policy of ZeeBussiness regarding data collection and usage." />
-      </Head>
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-inter">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-inter">
+      <Header />
+      <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-8">
             Privacy Policy
@@ -22,7 +24,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Introduction</h2>
             <p className="text-gray-700 leading-relaxed">
-              Welcome to ZeeBussiness. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://zeebussiness-u2vl-vsinghs-projects.vercel.app/bussiness" className="text-blue-600 hover:underline">zeebussiness-u2vl-vsinghs-projects.vercel.app/bussiness</a>, including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the "Site"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the Site.
+              Welcome to ZeeBussiness. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://zeebussiness.com" className="text-blue-600 hover:underline">zeebussiness.com</a>, including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the "Site"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the Site.
             </p>
           </section>
 
@@ -105,7 +107,7 @@ export default function PrivacyPolicyPage() {
               We may use cookies, web beacons, tracking pixels, and other tracking technologies on the Site to help customize the Site and improve your experience. When you access the Site, your personal information is not collected through the use of tracking technology. Most browsers are set to accept cookies by default. You can remove or reject cookies, but be aware that such action could affect the availability and functionality of the Site.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              For more information on how we use cookies, please refer to our Cookie Policy (if applicable, link to a separate cookie policy page).
+              For more information on how we use cookies, please refer to our <a href="/legal/cookie-policy" className="text-blue-600 hover:underline">Cookie Policy</a>.
             </p>
           </section>
 
@@ -147,7 +149,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
         </div>
-      </div>
-    </>
-  );
+      </main>
+      <Footer />
+    </div>
+  )
 }

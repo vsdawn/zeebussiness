@@ -1,16 +1,18 @@
-// app/contact/page.tsx
-
-import Head from 'next/head';
+import type { Metadata } from "next"
+import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
 import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Contact Us - ZeeBussiness",
+  description: "Get in touch with ZeeBussiness for inquiries, support, or feedback.",
+}
 
 export default function ContactPage() {
   return (
-    <>
-      <Head>
-        <title>Contact Us - ZeeBussiness</title>
-        <meta name="description" content="Get in touch with ZeeBussiness for inquiries, support, or feedback." />
-      </Head>
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-inter">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-inter">
+      <Header />
+      <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-8">
             Contact Us
@@ -110,7 +112,8 @@ export default function ContactPage() {
             </form>
           </section>
         </div>
-      </div>
-    </>
-  );
+      </main>
+      <Footer />
+    </div>
+  )
 }

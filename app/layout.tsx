@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import AdSenseScript from "./adsense-script"
 import ScrollIndicator from "@/components/ui/scroll-indicator"
+import CookieConsent from "@/components/ui/cookie-consent"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -64,6 +65,7 @@ export default function RootLayout({
         <AdSenseScript />
         <ScrollIndicator />
         {children}
+        <CookieConsent />
       </body>
     </html>
   )

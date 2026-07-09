@@ -1,15 +1,17 @@
-// app/legal/terms-conditions/page.tsx
+import type { Metadata } from "next"
+import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
 
-import Head from 'next/head';
+export const metadata: Metadata = {
+  title: "Terms and Conditions - ZeeBussiness",
+  description: "Read the Terms and Conditions for using the ZeeBussiness website.",
+}
 
 export default function TermsAndConditionsPage() {
   return (
-    <>
-      <Head>
-        <title>Terms and Conditions - ZeeBussiness</title>
-        <meta name="description" content="Read the Terms and Conditions for using the ZeeBussiness website." />
-      </Head>
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-inter">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-inter">
+      <Header />
+      <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-8">
             Terms and Conditions
@@ -22,7 +24,7 @@ export default function TermsAndConditionsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">1. Introduction</h2>
             <p className="text-gray-700 leading-relaxed">
-              Welcome to ZeeBussiness. These Terms and Conditions ("Terms") govern your use of the website <a href="https://zeebussiness-u2vl-vsinghs-projects.vercel.app/bussiness" className="text-blue-600 hover:underline">zeebussiness-u2vl-vsinghs-projects.vercel.app/bussiness</a> (the "Site"). By accessing or using the Site, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use the Site.
+              Welcome to ZeeBussiness. These Terms and Conditions ("Terms") govern your use of the website <a href="https://zeebussiness.com" className="text-blue-600 hover:underline">zeebussiness.com</a> (the "Site"). By accessing or using the Site, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use the Site.
             </p>
           </section>
 
@@ -89,7 +91,7 @@ export default function TermsAndConditionsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">10. Governing Law</h2>
             <p className="text-gray-700 leading-relaxed">
-              These Terms, their subject matter and their formation, are governed by the laws of [Your Country/State]. You and we both agree that the courts of [Your Country/State] will have exclusive jurisdiction.
+              These Terms, their subject matter and their formation, are governed by the laws of India / Karnataka. You and we both agree that the courts of Bengaluru, Karnataka, India will have exclusive jurisdiction.
             </p>
           </section>
 
@@ -106,7 +108,8 @@ export default function TermsAndConditionsPage() {
             </p>
           </section>
         </div>
-      </div>
-    </>
-  );
+      </main>
+      <Footer />
+    </div>
+  )
 }

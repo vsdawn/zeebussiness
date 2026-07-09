@@ -1,13 +1,17 @@
-import Head from 'next/head';
+import type { Metadata } from "next"
+import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
+
+export const metadata: Metadata = {
+  title: "About Us - ZeeBussiness",
+  description: "Learn more about ZeeBussiness, our mission, and what we stand for.",
+}
 
 export default function AboutPage() {
   return (
-    <>
-      <Head>
-        <title>About Us - ZeeBussiness</title>
-        <meta name="description" content="Learn more about ZeeBussiness, our mission, and what we stand for." />
-      </Head>
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-inter">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-inter">
+      <Header />
+      <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-8">
             About ZeeBussiness
@@ -37,7 +41,8 @@ export default function AboutPage() {
             </p>
           </section>
         </div>
-      </div>
-    </>
-  );
+      </main>
+      <Footer />
+    </div>
+  )
 }
